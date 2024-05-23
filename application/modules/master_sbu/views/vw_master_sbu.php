@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-body">
                     <p class="card-title"><?= $heading ?></p>
-                    <a href="<?= base_url('director/add') ?>" type="button" class="btn btn-primary btn-icon-text">
+                    <a href="<?= base_url('master_sbu/add') ?>" type="button" class="btn btn-primary btn-icon-text">
                         <i class="ti-layers btn-icon-prepend"></i>
                         Tambah
                     </a>
@@ -15,13 +15,13 @@
                     <div class="row mt-3">
                         <div class="col-12">
                             <div class="table-responsive">
-                                <table id="director_table" class="display expandable-table" style="width:100%">
+                                <table id="master_sbu_table" class="display expandable-table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Email</th>
-                                            <th>Nama</th>
-                                            <th>No Hp</th>
+                                            <th>Nama SBU</th>
+                                            <th>Description</th>
+                                            <th>Director</th>
                                             <th>Status</th>
                                             <th>Create At</th>
                                             <th>Update At</th>
@@ -41,7 +41,7 @@
 
 <script>
     $(document).ready(function() {
-        var table = $("#director_table");
+        var table = $("#master_sbu_table");
         grid_brand = table.DataTable({
             // scrollX: true,
             // scrollCollapse: true,
@@ -51,7 +51,7 @@
             processing: true,
             ajax: {
                 type: "GET",
-                url: '<?= base_url() ?>director/load',
+                url: '<?= base_url() ?>master_sbu/load',
                 data: function(d) {
                     no = 0;
                 },
@@ -68,21 +68,22 @@
                 },
                 {
                     render: function(data, type, full, meta) {
-                        return full.email;
+                        return full.name_sbu;
                     },
                     className: "text-center",
                 },
                 {
                     render: function(data, type, full, meta) {
-                        return full.name;
+                        return full.description;
                     },
-                    className: "text-center",
+                    className: "wrap-text",
+                    width: "30%"
                 },
                 {
                     render: function(data, type, full, meta) {
-                        return full.no_hp;
+                        return full.name_director;
                     },
-                    className: "text-center",
+                    className: "text-wrap",
                 },
                 {
                     render: function(data, type, full, meta) {
@@ -112,8 +113,9 @@
                 },
                 {
                     render: function(data, type, full, meta) {
-                        return `<a href="${siteUrl}director/edit/${full.uuid}" class="btn btn-info" type="button"><i class="ti-receipt"></i></a>
-                        <button onclick="hapus('${full.uuid}')" class="btn btn-danger" type="button"><i class="ti-close"></i></button>`;
+                        return `<a href="${siteUrl}master_sbu/edit/${full.uuid}" class="btn btn-info" type="button"><i class="ti-receipt"></i></a>
+                        <button onclick="hapus('${full.uuid}')" class="btn btn-danger" type="button"><i class="ti-close"></i></button>
+                        <a href="${siteUrl}master_sbu/setting/${full.uuid}" class="btn btn-success" type="button"><i class="ti-more-alt"></i></a>`;
                     },
                     className: 'text-center',
                     width: '15%'
@@ -134,7 +136,7 @@
         }).then((e) => {
             if (e === "confirm") {
                 $.ajax({
-                    url: siteUrl + 'director/hapus',
+                    url: siteUrl + 'master_sbu/hapus',
                     type: 'POST',
                     data: {
                         uuid
@@ -165,7 +167,7 @@
         let form_data = new FormData($('#form_change_password')[0]);
         e.preventDefault()
         $.ajax({
-            url: siteUrl + "director/changePassword",
+            url: siteUrl + "master_sbu/changePassword",
             method: "POST",
             dataType: "JSON",
             processData: false,

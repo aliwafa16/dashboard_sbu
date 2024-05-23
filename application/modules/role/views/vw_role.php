@@ -96,9 +96,11 @@
                 },
                 {
                     render: function(data, type, full, meta) {
-                        return `<a href="${siteUrl}role/edit/${full.uuid}" class="btn btn-info btn-sm btn-icon" type="button"><i class="ti-receipt"></i></a>
-                        <button onclick="hapus('${full.uuid}')" class="btn btn-danger btn-sm btn-icon" type="button"><i class="ti-close"></i></button>`;
+                        return `<a href="${siteUrl}role/edit/${full.uuid}" class="btn btn-info" type="button"><i class="ti-receipt"></i></a>
+                        <button onclick="hapus('${full.uuid}')" class="btn btn-danger" type="button"><i class="ti-close"></i></button>`;
                     },
+                    className: 'text-center',
+                    width: '15%'
 
                 },
             ],

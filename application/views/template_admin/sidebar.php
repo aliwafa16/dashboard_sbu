@@ -175,6 +175,7 @@
     <!-- partial -->
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <?php var_dump($sidebar) ?>
         <ul class="nav">
             <li class="nav-item <?= ($sidebar == "dashboard") ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= base_url('dashboard') ?>">
@@ -196,6 +197,12 @@
                             <li class="nav-item"> <a class="nav-link" href="<?= base_url('director') ?>">Direktur</a></li>
                         </ul>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= ($sidebar == "master-sbu") ? 'active' : '' ?>" href="<?= base_url('master_sbu') ?>">
+                        <i class="icon-paper menu-icon"></i>
+                        <span class="menu-title">Daftar SBU</span>
+                    </a>
                 </li>
             <?php endif; ?>
             <li class="nav-item">

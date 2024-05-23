@@ -141,10 +141,16 @@
                 },
                 {
                     render: function(data, type, full, meta) {
-                        return `<a href="${siteUrl}user/edit/${full.uuid}" class="btn btn-info btn-sm btn-icon" type="button"><i class="ti-receipt"></i></a>
-                        <button onclick="changePassword('${full.uuid}')" class="btn btn-success btn-sm btn-icon" type="button"><i class="ti-key"></i></button>
-                        <button onclick="hapus('${full.uuid}')" class="btn btn-danger btn-sm btn-icon" type="button"><i class="ti-close"></i></button>`;
+                        // return `<a href="${siteUrl}user/edit/${full.uuid}" class="btn btn-info btn-sm btn-icon" type="button"><i class="ti-receipt"></i></a>
+                        // <button onclick="changePassword('${full.uuid}')" class="btn btn-success btn-sm btn-icon" type="button"><i class="ti-key"></i></button>
+                        // <button onclick="hapus('${full.uuid}')" class="btn btn-danger btn-sm btn-icon" type="button"><i class="ti-close"></i></button>`;
+
+                        return `<div><a href="${siteUrl}user/edit/${full.uuid}" class="btn btn-info" type="button"><i class="ti-receipt"></i></a>
+                                <button onclick="changePassword('${full.uuid}')" class="btn btn-success" type="button"><i class="ti-key"></i></button>
+                                <button onclick="hapus('${full.uuid}')" class="btn btn-danger" type="button"><i class="ti-close"></i></button><div>`
                     },
+                    className: "text-center",
+                    width: '15%'
 
                 },
             ],

@@ -49,7 +49,15 @@
     <!-- Alerts -->
     <script src="<?= ASSETS_URL ?>alerts/cute-alert.js"></script>
 
+    <!-- Numeral js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
     <script>
+        $('.nominal').on('keyup', function() {
+            var n = parseInt($(this).val().replace(/\D/g, ''), 10);
+            $(this).val(isNaN(n) ? '' : n.toLocaleString());
+        });
+
         function success(data) {
             toastr.options = {
                 "closeButton": false,

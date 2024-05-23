@@ -1,7 +1,7 @@
 <?php
-class Mo_director extends CI_Model
+class Mo_target_sbu extends CI_Model
 {
-    public $table = 't_director';
+    public $table = 't_target_sbu';
     public function getAll()
     {
         return $this->db->get($this->table)->result_array();

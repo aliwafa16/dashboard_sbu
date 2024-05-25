@@ -10,6 +10,8 @@ class Master_sbu extends MY_Controller
         $this->load->model('mo_director');
         $this->load->model('mo_sbu');
         $this->load->model('mo_target_sbu');
+        $this->load->model('mo_produk_sbu');
+
         is_login();
     }
     public function index()
@@ -247,6 +249,115 @@ class Master_sbu extends MY_Controller
         $this->db->trans_start();
         $this->db->where('uuid', $uuid);
         $this->db->update('t_target_sbu', $data_submit);
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            $response = [
+                'code' => 403, 'status' => false, 'data' => null, 'message' => 'Gagal edit data', 'url' => 'master_sbu/setting/' . $sbu['uuid']
+            ];
+        } else {
+            $response = ['code' => 200, 'status' => true, 'data' => null, 'message' => 'Berhasil edit data', 'url' => 'master_sbu/setting/' . $sbu['uuid']];
+        }
+
+
+        echo json_encode($response);
+    }
+
+    public function addProduk()
+    {
+        $response = [];
+
+        $nominal = str_replace(',', '', $this->input->post('target'));
+
+        $uuid = $this->input->post('uuid');
+        $sbu = $this->mo_sbu->getById($uuid);
+        $data_submit = [
+            'name_product' => $this->input->post('produk'),
+            'description' => $this->input->post('description'),
+            'sbu_id' => $sbu['id_sbu'],
+            'is_active' => ($this->input->post('is_active')) ? 1 : 0
+        ];
+
+        $this->db->trans_start();
+        $this->db->insert('t_product_sbu', $data_submit);
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            $response = [
+                'code' => 403, 'status' => false, 'data' => null, 'message' => 'Gagal tambah data', 'url' => 'master_sbu/setting/' . $uuid
+            ];
+        } else {
+            $response = ['code' => 200, 'status' => true, 'data' => null, 'message' => 'Berhasil tambah data', 'url' => 'master_sbu/setting/' . $uuid];
+        }
+
+
+        echo json_encode($response);
+    }
+
+    public function loadProduk($uuid)
+    {
+        $sbu = $this->mo_sbu->getById($uuid);
+
+
+        $this->db->select('t_product_sbu.*');
+        $this->db->from('t_product_sbu');
+        $this->db->where('t_product_sbu.sbu_id', $sbu['id_sbu']);
+        $this->db->order_by('t_product_sbu.id_product', 'DESC');
+        $data = $this->db->get()->result_array();
+
+        echo json_encode($data);
+    }
+
+    public function getProduk($uuid)
+    {
+        $data = $this->mo_produk_sbu->getById($uuid);
+        echo json_encode($data);
+    }
+
+    public function hapusProduk()
+    {
+        $uuid = $this->input->post('uuid');
+        $sbu_id = $this->input->post('sbu_id');
+
+        if (!$uuid) {
+            $response = [
+                'code' => 403, 'status' => false, 'data' => null, 'message' => 'Data tidak ditemukan', 'url' => 'master_sbu'
+            ];
+        } else {
+
+
+            $this->db->trans_start();
+            $this->db->where('uuid', $uuid);
+            $this->db->delete('t_product_sbu');
+            $this->db->trans_complete();
+
+            if ($this->db->trans_status() == FALSE) {
+                $response = ['code' => 403, 'status' => false, 'data' => null, 'message' => 'Gagal hapus data', 'url' => 'master_sbu/setting/' . $sbu_id];
+            } else {
+                $response = ['code' => 200, 'status' => true, 'data' => null, 'message' => 'Berhasil hapus data', 'url' => 'master_sbu/setting/' . $sbu_id];
+            }
+        }
+        echo json_encode($response);
+    }
+
+    public function editProduk()
+    {
+        $response = [];
+
+        $nominal = str_replace(',', '', $this->input->post('target'));
+
+        $uuid = $this->input->post('uuid');
+        $sbu = $this->db->get_where('t_sbu', ['id_sbu' => $this->input->post('sbu_id')])->row_array();
+        $data_submit = [
+            'name_product' => $this->input->post('produk'),
+            'description' => $this->input->post('description'),
+            'sbu_id' => $sbu['id_sbu'],
+            'is_active' => ($this->input->post('is_active')) ? 1 : 0
+        ];
+
+        $this->db->trans_start();
+        $this->db->where('uuid', $uuid);
+        $this->db->update('t_product_sbu', $data_submit);
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {

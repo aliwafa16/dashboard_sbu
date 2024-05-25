@@ -31,7 +31,7 @@
     <!-- inject:js -->
     <script src="<?= ASSETS_URL ?>js/off-canvas.js"></script>
     <script src="<?= ASSETS_URL ?>js/hoverable-collapse.js"></script>
-    <script src="<?= ASSETS_URL ?>js/template.js"></script>
+    <!-- <script src="<?= ASSETS_URL ?>js/template.js"></script> -->
     <script src="<?= ASSETS_URL ?>js/settings.js"></script>
     <script src="<?= ASSETS_URL ?>js/todolist.js"></script>
     <script src="<?= ASSETS_URL ?>vendors/select2/select2.min.js"></script>
@@ -40,6 +40,7 @@
     <script src="<?= ASSETS_URL ?>js/dashboard.js"></script>
     <script src="<?= ASSETS_URL ?>js/Chart.roundedBarCharts.js"></script>
     <script src="<?= ASSETS_URL ?>js/select2.js"></script>
+    <script src="<?= ASSETS_URL ?>js/file-upload.js"></script>
     <!-- End custom js for this page-->
 
 

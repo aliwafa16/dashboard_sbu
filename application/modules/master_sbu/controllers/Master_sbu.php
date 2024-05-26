@@ -162,6 +162,7 @@ class Master_sbu extends MY_Controller
         $sbu = $this->mo_sbu->getById($uuid);
         $data_submit = [
             'target' => $nominal,
+            'name_target' => $this->input->post('name_target'),
             'start_date' => $this->input->post('start_date'),
             'end_date' => $this->input->post('end_date'),
             'sbu_id' => $sbu['id_sbu'],
@@ -240,6 +241,7 @@ class Master_sbu extends MY_Controller
         $sbu = $this->db->get_where('t_sbu', ['id_sbu' => $this->input->post('sbu_id')])->row_array();
         $data_submit = [
             'target' => $nominal,
+            'name_target' => $this->input->post('name_target'),
             'start_date' => $this->input->post('start_date'),
             'end_date' => $this->input->post('end_date'),
             'sbu_id' => $this->input->post('sbu_id'),

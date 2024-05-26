@@ -182,7 +182,8 @@
                     <span class="menu-title">Dashboard</span>
                 </a>
             </li>
-            <?php if ($this->session->userdata('is_admin')) : ?>
+            <?php $is_admin = $this->session->userdata('is_admin') ?>
+            <?php if ($is_admin) : ?>
                 <li class="nav-item <?php echo ($sidebar === "master-data") ? 'active' : ''; ?>">
                     <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <i class="icon-layout menu-icon"></i>
@@ -218,6 +219,29 @@
                         </ul>
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"><a class="nav-link" href="<?= base_url('item_monitoring') ?>">Item Monitoring</a></li>
+                        </ul>
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="<?= base_url('master_status') ?>">Status</a></li>
+                        </ul>
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="<?= base_url('master_pic') ?>">PIC</a></li>
+                        </ul>
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="<?= base_url('master_target') ?>">Satuan target</a></li>
+                        </ul>
+                    </div>
+                </li>
+            <?php endif; ?>
+            <?php if (!$is_admin) : ?>
+                <li class="nav-item <?php echo ($sidebar === "master-data") ? 'active' : ''; ?>">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <i class="icon-layout menu-icon"></i>
+                        <span class="menu-title">Master data</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="<?= base_url('target_achievement') ?>">Target Quarter</a></li>
                         </ul>
                     </div>
                 </li>

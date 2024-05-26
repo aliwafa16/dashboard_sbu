@@ -21,6 +21,29 @@ if (!function_exists('is_login')) {
     }
 }
 
+if (!function_exists('session_listsbu')) {
+    function session_listsbu($value = '')
+    {
+        $ci = &get_instance();
+        $director_id = $ci->session->userdata('data_director')['id_director'];
+        return $ci->db->get_where('t_sbu', ['director_id' => $director_id])->result_array();
+    }
+}
+
+if (!function_exists('wheres_listsbu')) {
+    function wheres_listsbu($value = '')
+    {
+        $ci = &get_instance();
+        $director_id = $ci->session->userdata('data_director')['id_director'];
+        $data = $ci->db->get_where('t_sbu', ['director_id' => $director_id])->result_array();
+        $results = [];
+        foreach ($data as $key => $value) {
+            $results[] = $value['id_sbu'];
+        }
+        return $results;
+    }
+}
+
 if (!function_exists('tgl_format_indo')) {
     function tgl_format_indo($date)
     {

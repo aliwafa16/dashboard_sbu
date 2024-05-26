@@ -30,6 +30,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Nama</th>
                                             <th>Target</th>
                                             <th>Tanggal mulai</th>
                                             <th>Tanggal selesai</th>
@@ -84,6 +85,10 @@
             <div class="modal-body">
                 <form class="forms-sample" id="form_target_sbu">
                     <input type="hidden" name="uuid" id="uuid" value="<?= $this->uri->segment(3) ?>">
+                    <div class="form-group">
+                        <label for="name_target">Nama<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name_target" name="name_target" placeholder="Re:Password" required>
+                    </div>
                     <label for="target">Target<span class="text-danger">*</span></label>
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
@@ -128,7 +133,10 @@
                 <form class="forms-sample" id="form_edit_target_sbu">
                     <input type="hidden" name="uuid" id="uuid" value="">
                     <input type="hidden" name="sbu_id" id="sbu_id" value="">
-
+                    <div class="form-group">
+                        <label for="name_target">Nama<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name_target" name="name_target" placeholder="Re:Password" required>
+                    </div>
                     <label for="target">Target<span class="text-danger">*</span></label>
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
@@ -146,7 +154,7 @@
                     </div>
                     <div class="form-check form-check-primary">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" value="1" name="is_active">
+                            <input type="checkbox" class="form-check-input" value="1" name="is_active" id="is_active">
                             Aktif
                             <i class="input-helper"></i></label>
                     </div>
@@ -262,6 +270,12 @@
                 },
                 {
                     render: function(data, type, full, meta) {
+                        return full.name_target
+                    },
+                    className: "text-center",
+                },
+                {
+                    render: function(data, type, full, meta) {
                         return `Rp. ${numeral(full.target).format('0,0')}`;
                     },
                     className: "text-center",
@@ -271,7 +285,6 @@
                         return moment(full.start_date).format('LL')
                     },
                     className: "wrap-text",
-                    width: "30%"
                 },
                 {
                     render: function(data, type, full, meta) {
@@ -425,6 +438,7 @@
             contentType: false,
             success: function(results) {
                 $('#targetEditModal #uuid').val(results.uuid)
+                $('#targetEditModal #name_target').val(results.name_target)
                 $('#targetEditModal #target').val(results.target)
                 $('#targetEditModal #start_date').val(results.start_date)
                 $('#targetEditModal #end_date').val(results.end_date)

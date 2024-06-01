@@ -44,6 +44,55 @@ if (!function_exists('wheres_listsbu')) {
     }
 }
 
+if (!function_exists('subcategory_formSbuSpecification')) {
+    function subcategory_formSbuSpecification($value = '')
+    {
+        $results = [];
+        $ci = &get_instance();
+        $director_id = $ci->session->userdata('data_director')['id_director'];
+        $data = $ci->db->get_where('t_sbu', ['director_id' => $director_id])->result_array();
+        $b = [];
+        foreach ($data as $key => $value) {
+            $b[] = $value['id_sbu'];
+        }
+
+        $ci->db->where_in('t_account_subcategory.sbu_id', $b);
+        $ci->db->where('t_account_subcategory.product_id', NULL);
+        $ci->db->where('t_account_subcategory.category_monitoring_id', 1);
+        $a = $ci->db->get('t_account_subcategory')->result_array();
+
+        foreach ($a as $key => $value) {
+            $results[] = $value['id_account_subcategory'];
+        }
+        return $results;
+    }
+}
+
+
+if (!function_exists('subcategory_formSbuSProduct')) {
+    function subcategory_formSbuSProduct($value = '')
+    {
+        $results = [];
+        $ci = &get_instance();
+        $director_id = $ci->session->userdata('data_director')['id_director'];
+        $data = $ci->db->get_where('t_sbu', ['director_id' => $director_id])->result_array();
+        $b = [];
+        foreach ($data as $key => $value) {
+            $b[] = $value['id_sbu'];
+        }
+
+        $ci->db->where_in('t_account_subcategory.sbu_id', $b);
+        $ci->db->where('t_account_subcategory.product_id !=', NULL);
+        $ci->db->where('t_account_subcategory.category_monitoring_id', 1);
+        $a = $ci->db->get('t_account_subcategory')->result_array();
+
+        foreach ($a as $key => $value) {
+            $results[] = $value['id_account_subcategory'];
+        }
+        return $results;
+    }
+}
+
 if (!function_exists('tgl_format_indo')) {
     function tgl_format_indo($date)
     {
@@ -58,7 +107,7 @@ if (!function_exists('tgl_format_indo')) {
         $tgl = substr($date, 8, 2);
         $waktu = substr($date, 11, 5);
         $hari = date("w", strtotime($date));
-        $result = $tgl . " " . $Bulan[(int)$bulan - 1] . " " . $tahun . " " . $waktu;
+        $result = $tgl . " " . $Bulan[(int) $bulan - 1] . " " . $tahun . " " . $waktu;
 
         return $result;
     }

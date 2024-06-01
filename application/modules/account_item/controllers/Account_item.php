@@ -41,6 +41,7 @@ class Account_item extends MY_Controller
         $this->db->where_in('t_account_item.sbu_id', $this->wheres_listsbu);
         $this->db->order_by('t_account_item.id_account_item', 'DESC');
         $data = $this->db->get()->result_array();
+
         echo json_encode($data);
     }
 

@@ -11,4 +11,10 @@ class Mo_produk_sbu extends CI_Model
     {
         return $this->db->get_where($this->table, ['uuid' => $uuid])->row_array();
     }
+
+    public function getListProduct($array)
+    {
+        $this->db->where_in('t_sbu.id_sbu', $array);
+        return $this->db->get($this->table)->result_array();
+    }
 }

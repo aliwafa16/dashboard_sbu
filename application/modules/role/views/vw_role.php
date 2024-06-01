@@ -8,10 +8,10 @@
                         <i class="ti-layers btn-icon-prepend"></i>
                         Tambah
                     </a>
-                    <button type="button" class="btn btn-danger btn-icon-text">
+                    <!-- <button type="button" class="btn btn-danger btn-icon-text">
                         <i class="ti-upload btn-icon-prepend"></i>
                         Upload
-                    </button>
+                    </button> -->
                     <div class="row mt-3">
                         <div class="col-12">
                             <div class="table-responsive">

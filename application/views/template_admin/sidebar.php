@@ -249,11 +249,23 @@
                             <li class="nav-item"> <a class="nav-link" href="<?= base_url('account_subcategory') ?>">Sub Kategori</a></li>
                         </ul>
                     </div>
-                    <div class="collapse" id="ui-basic">
+                    <!-- <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item"> <a class="nav-link" href="<?= base_url('account_item') ?>">Item Monitoring</a></li>
                         </ul>
-                    </div>
+                    </div> -->
+                </li>
+                <li class="nav-item <?= ($sidebar == "account_formulir") ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('account_formulir') ?>">
+                        <i class="icon-align-justify menu-icon"></i>
+                        <span class="menu-title">Formulasi</span>
+                    </a>
+                </li>
+                <li class="nav-item <?= ($sidebar == "product_formulir") ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('product_formulir') ?>">
+                        <i class="ti-bag menu-icon"></i>
+                        <span class="menu-title">Formulasi Produk</span>
+                    </a>
                 </li>
             <?php endif; ?>
         </ul>

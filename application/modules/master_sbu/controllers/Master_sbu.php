@@ -11,7 +11,7 @@ class Master_sbu extends MY_Controller
         $this->load->model('mo_sbu');
         $this->load->model('mo_target_sbu');
         $this->load->model('mo_produk_sbu');
-
+        $this->load->model('mo_account_monitoring');
         is_login();
     }
     public function index()
@@ -58,15 +58,18 @@ class Master_sbu extends MY_Controller
             'is_active' => ($this->input->post('is_active')) ? 1 : 0
         ];
 
+
         $this->db->trans_start();
         $this->db->insert($this->table, $data_submit);
+        $last_sbu_id = $this->db->insert_id();
         $this->db->trans_complete();
-
         if ($this->db->trans_status() === FALSE) {
             $response = [
                 'code' => 403, 'status' => false, 'data' => null, 'message' => 'Gagal tambah data', 'url' => 'master_sbu'
             ];
         } else {
+            // Proses buat form Brand/SBU  Spesification
+            $statusInsertForm =  $this->mo_account_monitoring->addFormSBUSpecification($last_sbu_id);
             $response = ['code' => 200, 'status' => true, 'data' => null, 'message' => 'Berhasil tambah data', 'url' => 'master_sbu'];
         }
 
@@ -280,8 +283,13 @@ class Master_sbu extends MY_Controller
             'is_active' => ($this->input->post('is_active')) ? 1 : 0
         ];
 
+
+
+
+
         $this->db->trans_start();
         $this->db->insert('t_product_sbu', $data_submit);
+        $last_product_id = $this->db->insert_id();
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {
@@ -289,6 +297,9 @@ class Master_sbu extends MY_Controller
                 'code' => 403, 'status' => false, 'data' => null, 'message' => 'Gagal tambah data', 'url' => 'master_sbu/setting/' . $uuid
             ];
         } else {
+            // Proses buat form Brand/SBU  Spesification
+            $statusInsertForm =  $this->mo_account_monitoring->addFormSBUProduct($last_product_id, $sbu['id_sbu']);
+
             $response = ['code' => 200, 'status' => true, 'data' => null, 'message' => 'Berhasil tambah data', 'url' => 'master_sbu/setting/' . $uuid];
         }
 

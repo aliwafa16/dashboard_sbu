@@ -31,7 +31,7 @@
     <!-- inject:js -->
     <script src="<?= ASSETS_URL ?>js/off-canvas.js"></script>
     <script src="<?= ASSETS_URL ?>js/hoverable-collapse.js"></script>
-    <!-- <script src="<?= ASSETS_URL ?>js/template.js"></script> -->
+    <script src="<?= ASSETS_URL ?>js/template.js"></script>
     <script src="<?= ASSETS_URL ?>js/settings.js"></script>
     <script src="<?= ASSETS_URL ?>js/todolist.js"></script>
     <script src="<?= ASSETS_URL ?>vendors/select2/select2.min.js"></script>

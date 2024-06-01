@@ -11,4 +11,9 @@ class Mo_category_monitoring extends CI_Model
     {
         return $this->db->get_where($this->table, ['uuid' => $uuid])->row_array();
     }
+
+    public function getItemSBUSpecification($id)
+    {
+        return $this->db->get_where($this->table, ['id_category_monitoring' => $id])->row_array();
+    }
 }

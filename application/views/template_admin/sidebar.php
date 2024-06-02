@@ -258,13 +258,19 @@
                 <li class="nav-item <?= ($sidebar == "account_formulir") ? 'active' : '' ?>">
                     <a class="nav-link" href="<?= base_url('account_formulir') ?>">
                         <i class="icon-align-justify menu-icon"></i>
-                        <span class="menu-title">Formulasi</span>
+                        <span class="menu-title">Formulasi SBU</span>
                     </a>
                 </li>
                 <li class="nav-item <?= ($sidebar == "product_formulir") ? 'active' : '' ?>">
                     <a class="nav-link" href="<?= base_url('product_formulir') ?>">
                         <i class="ti-bag menu-icon"></i>
                         <span class="menu-title">Formulasi Produk</span>
+                    </a>
+                </li>
+                <li class="nav-item <?= ($sidebar == "main_formulir") ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('main_formulir') ?>">
+                        <i class="ti-bookmark-alt menu-icon"></i>
+                        <span class="menu-title">Formulasi 3R</span>
                     </a>
                 </li>
             <?php endif; ?>

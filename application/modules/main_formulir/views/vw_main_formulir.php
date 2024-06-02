@@ -4,84 +4,54 @@
             <div class="card">
                 <div class="card-body">
                     <p class="card-title text-center"><?= $heading ?></p>
-                    <button href="#" type="button" class="btn btn-primary btn-icon-text" data-toggle="modal" data-target="#addModal">
-                        <i class="ti-layers btn-icon-prepend"></i>
-                        Tambah Brand / Service Spesification
-                    </button>
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table id="subcategory_table" class="display expandable-table table-bordered" style="width:100%">
-                                    <thead>
-                                        <tr style="text-align: center">
-                                            <th style="width:7%">Aksi</th>
-                                            <th style="width: 20%">Action plan</th>
-                                            <th style="width: 8%">Status</th>
-                                            <th style="width: 8%">PIC</th>
-                                            <th style="width:5%">Tanggal mulai</th>
-                                            <th style="width:5%">Tanggal selesai</th>
-                                            <th style="width: 7%">Satuan target</th>
-                                            <th style="width: 5%">Target</th>
-                                            <th style="width: 5%">Realisasi</th>
-                                            <th style="width: 15%">% Reaslisasi</th>
-                                            <th style="width:10%">Catatan</th>
-                                        </tr>
-                                    </thead>
-                                    <form action="">
-                                        <tbody>
-                                            <?php foreach ($forms as $key => $value) : ?>
-                                                <tr>
-                                                    <td class="" colspan="11" style="font-weight: bold; text-transform:uppercase; background-color:#DAF5FF">
-                                                        <?= $value['subcategory_name'] ?>
-                                                    </td>
-                                                </tr>
-                                                <?php foreach ($value['list_monitoring'] as $key_list => $value_list) : ?>
-                                                    <?php
-                                                    $percentage = $value_list['percentage'];
-                                                    $progressBarClass = '';
-                                                    if ($percentage < 50) {
-                                                        $progressBarClass = 'bg-danger';
-                                                    } elseif ($percentage >= 50 && $percentage <= 74) {
-                                                        $progressBarClass = 'bg-warning';
-                                                    } else {
-                                                        $progressBarClass = 'bg-success';
-                                                    }
-                                                    ?>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="text-center">
-                                                                <a href="<?= ($value_list['link_dokumen']) ? $value_list['link_dokumen'] : '#' ?>" class="btn btn-info btn-sm text-center my-1 <?= (!$value_list['link_dokumen']) ? 'disabled' : '' ?>" type="button" title="unduh dokumen"><i class="ti-receipt"></i></a>
-                                                                <button class="btn btn-success btn-sm text-center my-1" type="button" title="edit data"><i class="ti-settings" onclick="fnEdit(`<?= $value_list['uuid'] ?>`)"></i></button>
-                                                                <button onclick="fnDelete(`<?= $value_list['uuid'] ?>`)" class="btn btn-danger btn-sm text-center my-1" type="button" title="hapus"><i class="ti-brush-alt"></i></button>
-                                                            </div>
-                                                        </td>
-                                                        <td class="wrap-text"><?= $value_list['name_tools'] ?></td>
-                                                        <td class="text-center">
-                                                            <span class="bg-<?= $value_list['color'] ?> text-white p-1 rounded">
-                                                                <?= $value_list['status_name'] ?>
-                                                            </span>
-                                                        </td>
-                                                        <td class="text-center fw-bold">
-                                                            <?= ($value_list['pic_name'] ? $value_list['pic_name'] : 'Belum diset')  ?>
-                                                        </td>
-                                                        <td class="text-center"><?= ($value_list['start_date']) ? tgl_format_indo($value_list['start_date']) : '' ?></td>
-                                                        <td class="text-center"><?= ($value_list['end_date']) ? tgl_format_indo($value_list['end_date']) : ''  ?></td>
-                                                        <td class="text-center"><?= $value_list['ukuran_satuan'] ?></td>
-                                                        <td class="text-center"><?= $value_list['target_rate'] ?></td>
-                                                        <td class="text-center"><?= $value_list['actual'] ?></td>
-                                                        <td class="text-center">
-                                                            <div class="progress" style="height: 20px;">
-                                                                <div class="progress-bar <?= $progressBarClass ?>" role="progressbar" style="width:<?= ($value_list['percentage'] > 0)  ? $value_list['percentage'] . '%' : '%' ?>"><?= ($value_list['percentage'] > 0) ? $value_list['percentage'] . '%' : '0%'  ?></div>
-                                                            </div>
-                                                        </td>
-                                                        <td><?= $value_list['notes'] ?></td>
-
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            <?php endforeach ?>
-                                        </tbody>
-                                    </form>
-                                </table>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-9">
+                            <button href="#" type="button" class="btn btn-primary btn-icon-text my-1" data-toggle="modal" data-target="#addModal">
+                                <i class="ti-layers btn-icon-prepend"></i>
+                                Tambah Item Monitoring
+                            </button>
+                            <button href="#" type="button" class="btn btn-info btn-icon-text my-1" data-toggle="modal" data-target="#addDashboardModal">
+                                <i class="ti-server btn-icon-prepend"></i>
+                                Buat dashboard monitoring
+                            </button>
+                            <button href="#" type="button" class="btn btn-success btn-icon-text my-1" data-toggle="modal" data-target="#copyModal">
+                                <i class="ti-layout btn-icon-prepend"></i>
+                                Copy dashboard monitoring
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <form action="" id="form_periode">
+                                <div class="form-group">
+                                    <label for="periode_id">Periode</label>
+                                    <select class="form-control periode_id" id="periode_id" name="periode_id">
+                                        <option value="1">Januari</option>
+                                        <option value="2">Februari</option>
+                                        <option value="3">Maret</option>
+                                        <option value="4">April</option>
+                                        <option value="5">Mei</option>
+                                        <option value="6">Juni</option>
+                                        <option value="7">Juli</option>
+                                        <option value="8">Agustus</option>
+                                        <option value="9">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select>
+                                </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary" type="submit" id="btn_submit_periode">
+                                Cari
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="formulir">
+                    <div class="row text-center mb-5">
+                        <div class="col-md-12">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
                             </div>
                         </div>
                     </div>
@@ -90,6 +60,135 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="addDashboardModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Buat dashboard monitoring</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form_dashboard" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" id="uuid" name="uuid">
+                    <div class="form-group">
+                        <label for="sbu_id">Nama SBU<span class="text-danger">*</span></label>
+                        <select class="form-control js-example-basic-single" id="sbu_id" name="sbu_id" required style="width: 100% !important;">
+                            <option value="">--Pilih--</option>
+                            <?php foreach ($sbu as $key => $value) : ?>
+                                <option value="<?= $value['id_sbu'] ?>"><?= strtoupper($value['name_sbu'])  ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="start_date">Tanggal mulai<span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="start_date" name="start_date" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="end_date">Tanggal selesai<span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="end_date" name="end_date" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="copyModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="copyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="copyModalLabel">Copy dashboard monitoring</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form_copy" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" id="uuid" name="uuid">
+                    <div class="form-group">
+                        <label for="sbu_id">Nama SBU<span class="text-danger">*</span></label>
+                        <select class="form-control js-example-basic-single" id="sbu_id" name="sbu_id" required style="width: 100% !important;">
+                            <option value="">--Pilih--</option>
+                            <?php foreach ($sbu as $key => $value) : ?>
+                                <option value="<?= $value['id_sbu'] ?>"><?= strtoupper($value['name_sbu'])  ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="sumber_periode">Sumber<span class="text-danger">*</span></label>
+                                <select class="form-control" id="sumber_periode" name="sumber_periode" required>
+                                    <option value="">--Pilih bulan--</option>
+                                    <option value="1">Januari</option>
+                                    <option value="2">Februari</option>
+                                    <option value="3">Maret</option>
+                                    <option value="4">April</option>
+                                    <option value="5">Mei</option>
+                                    <option value="6">Juni</option>
+                                    <option value="7">Juli</option>
+                                    <option value="8">Agustus</option>
+                                    <option value="9">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tujuan_periode">Tujuan<span class="text-danger">*</span></label>
+                                <select class="form-control" id="tujuan_periode" name="tujuan_periode" required>
+                                    <option value="">--Pilih bulan--</option>
+                                    <option value="1">Januari</option>
+                                    <option value="2">Februari</option>
+                                    <option value="3">Maret</option>
+                                    <option value="4">April</option>
+                                    <option value="5">Mei</option>
+                                    <option value="6">Juni</option>
+                                    <option value="7">Juli</option>
+                                    <option value="8">Agustus</option>
+                                    <option value="9">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipe">Tipe<span class="text-danger">*</span></label>
+                        <select class="form-control" id="tipe" name="tipe" required>
+                            <option value="">--Pilih tipe--</option>
+                            <option value="1">Copy Template</option>
+                            <option value="2">Copy Template dengan value</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
@@ -109,6 +208,32 @@
                             <option value="">--Pilih--</option>
                             <?php foreach ($sbu as $key => $value) : ?>
                                 <option value="<?= $value['id_sbu'] ?>"><?= strtoupper($value['name_sbu'])  ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="periode">Periode<span class="text-danger">*</span></label>
+                        <select class="form-control" id="periode" name="periode" required>
+                            <option value="1">Januari</option>
+                            <option value="2">Februari</option>
+                            <option value="3">Maret</option>
+                            <option value="4">April</option>
+                            <option value="5">Mei</option>
+                            <option value="6">Juni</option>
+                            <option value="7">Juli</option>
+                            <option value="8">Agustus</option>
+                            <option value="9">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category_monitoring_id">Kategori Monitoring<span class="text-danger">*</span></label>
+                        <select class="form-control js-example-basic-single" id="category_monitoring_id" name="category_monitoring_id" required style="width: 100% !important;">
+                            <option value="">--Pilih--</option>
+                            <?php foreach ($category_monitoring as $key => $value) : ?>
+                                <option value="<?= $value['id_category_monitoring'] ?>"><?= strtoupper($value['name_category_monitoring'])  ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -298,13 +423,24 @@
 </div>
 <script>
     $(function() {
-        $("#sbu_id").change(function() {
+        // Mendapatkan bulan saat ini (dari 0 - 11)
+        const currentMonth = new Date().getMonth() + 1; // +1 karena getMonth() mengembalikan bulan dari 0-11
+        document.getElementsByClassName('periode_id')[0].value = currentMonth;
+        document.getElementById('periode').value = currentMonth;
+
+
+        load_form(currentMonth)
+
+
+        $("#category_monitoring_id").change(function() {
             $.ajax({
-                url: siteUrl + "product_formulir/getSubcategoryAccount",
+                url: siteUrl + "main_formulir/getSubcategoryAccount",
                 method: "POST",
                 dataType: "JSON",
                 data: {
-                    sbu_id: $('option:selected', this).val(),
+                    category_id: $('option:selected', this).val(),
+                    sbu_id: $('#addModal #sbu_id').val(),
+                    periode_id: $('#addModal #periode').val(),
                 },
                 success: function(results) {
                     let html = '';
@@ -322,7 +458,7 @@
         $('#editModal').modal('show');
         $.ajax({
             type: 'POST',
-            url: siteUrl + 'product_formulir/fnEdit',
+            url: siteUrl + 'main_formulir/fnEdit',
             data: {
                 uuid
             },
@@ -354,7 +490,7 @@
         }).then((e) => {
             if (e === "confirm") {
                 $.ajax({
-                    url: siteUrl + 'product_formulir/submit_hapus',
+                    url: siteUrl + 'main_formulir/submit_hapus',
                     type: 'POST',
                     data: {
                         uuid
@@ -401,7 +537,51 @@
         var data = new FormData($('#from_edit')[0]);
         $.ajax({
             type: 'POST',
-            url: siteUrl + 'product_formulir/submit_edit',
+            url: siteUrl + 'main_formulir/submit_edit',
+            data: data,
+            dataType: 'json',
+            contentType: false,
+            cache: false,
+            processData: false,
+            beforeSend: function() {},
+            success: function(results) {
+                if (results.code != 200) {
+                    errors(results)
+                } else {
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "200",
+                        "hideDuration": "300",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "300",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut",
+                        onHidden: function() {
+                            window.location.reload()
+                            $('#editModal').modal('hide')
+                            $('#from_edit')[0].reset();
+                        }
+                    }
+                    toastr.success(`${results.message}`)
+                }
+            }
+        });
+    })
+
+    $('#form_copy').on('submit', function(e) {
+        e.preventDefault();
+        var data = new FormData($('#form_copy')[0]);
+        $.ajax({
+            type: 'POST',
+            url: siteUrl + 'main_formulir/submit_copy',
             data: data,
             dataType: 'json',
             contentType: false,
@@ -444,7 +624,7 @@
         let form_data = new FormData($('#form_add')[0]);
         e.preventDefault()
         $.ajax({
-            url: siteUrl + "product_formulir/submit_add",
+            url: siteUrl + "main_formulir/submit_add",
             method: "POST",
             dataType: "JSON",
             contentType: false,
@@ -482,4 +662,81 @@
             }
         })
     })
+
+    $('#form_dashboard').on('submit', function(e) {
+        let form_data = new FormData($('#form_dashboard')[0]);
+        e.preventDefault()
+        $.ajax({
+            url: siteUrl + "main_formulir/create_dashboard",
+            method: "POST",
+            dataType: "JSON",
+            contentType: false,
+            cache: false,
+            processData: false,
+            data: form_data,
+            success: function(results) {
+                if (results.code != 200) {
+                    errors(results)
+                } else {
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "200",
+                        "hideDuration": "300",
+                        "timeOut": "2000",
+                        "extendedTimeOut": "300",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut",
+                        onHidden: function() {
+                            window.location.reload()
+                            $('#addModal').modal('hide')
+                            $('#form_add')[0].reset();
+                        }
+                    }
+                    toastr.success(`${results.message}`)
+                }
+            }
+        })
+    })
+
+    $('#form_periode').on('submit', function(e) {
+
+        $('#btn_submit_periode').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`)
+        $('#btn_submit_periode').attr('disabled', true)
+
+        $('#formulir').html(`<div class="row text-center mb-5">
+                        <div class="col-md-12">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>`)
+        e.preventDefault()
+        let periode_id = $('#periode_id').val();
+
+        load_form(periode_id)
+    })
+
+    function load_form(periode_id) {
+        $.ajax({
+            url: siteUrl + 'main_formulir/load_form/',
+            method: 'POST',
+            dataType: 'JSON',
+            data: {
+                periode_id
+            },
+            success: function(results) {
+                $('#formulir').html(results)
+                $('#btn_submit_periode').html(`Cari`)
+                $('#btn_submit_periode').attr('disabled', false)
+            }
+        })
+    }
 </script>

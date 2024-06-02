@@ -9,6 +9,27 @@ if (!function_exists('opn')) {
     }
 }
 
+if (!function_exists('getStartAndEndDate')) {
+    function getStartAndEndDate($month, $year)
+    {
+        // Validasi input bulan dan tahun
+        if (!checkdate($month, 1, $year)) {
+            return false; // Invalid month or year
+        }
+
+        // Tanggal awal bulan
+        $startDate = date("Y-m-01", strtotime("$year-$month-01"));
+
+        // Tanggal akhir bulan
+        $endDate = date("Y-m-t", strtotime("$year-$month-01"));
+
+        return [
+            'start_date' => $startDate,
+            'end_date' => $endDate
+        ];
+    }
+}
+
 
 if (!function_exists('is_login')) {
     function is_login($value = '')

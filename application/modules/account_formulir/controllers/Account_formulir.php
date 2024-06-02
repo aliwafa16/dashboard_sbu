@@ -41,6 +41,7 @@ class Account_formulir extends MY_Controller
         $this->db->where_in('sbu_id', $this->wheres_listsbu);
         $this->db->where('category_monitoring_id', 1);
         $data['subcategory_monitoring'] = $this->db->get('t_account_subcategory')->result_array();
+        
         $data['sbu'] = $this->mo_sbu->getListSbu($this->wheres_listsbu);
         $data['formSbu'] = $this->mo_account_monitoring->getFormSBUSpecification($this->wheres_listsbu, $this->wheres_formSbuSpecification);
         $result = array();
@@ -174,7 +175,11 @@ class Account_formulir extends MY_Controller
     public function getSubcategoryAccount()
     {
         $id_sbu = $this->input->post('sbu_id');
-        $data = $this->db->get_where('t_account_subcategory', ['category_monitoring_id' => 1, 'sbu_id' => $id_sbu])->result_array();
+        $data = $this->db->where('category_monitoring_id', 1)
+        ->where('sbu_id', $id_sbu)
+            ->where('product_id IS NULL', null, false)
+            ->get('t_account_subcategory')
+            ->result_array();
         echo json_encode($data);
     }
 
